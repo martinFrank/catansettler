@@ -38,7 +38,7 @@
 
     <properties>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.login>9f2f2d389762d622c52e24ed8a423ad544aea279</sonar.login>
+        <sonar.login>e982fe47a0897b6d7ed4e654bd850da379500ed4</sonar.login>
         <sonar.projectKey>martinFrank_catansettler</sonar.projectKey>
         <sonar.organization>martinfrank-github</sonar.organization>
         <sonar.language>java</sonar.language>
