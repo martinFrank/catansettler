@@ -69,12 +69,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.9.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.5</version>
@@ -88,16 +82,6 @@
             <groupId>com.github.martinfrank</groupId>
             <artifactId>cli</artifactId>
             <version>0.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.martinfrank</groupId>
-            <artifactId>maplib</artifactId>
-            <version>0.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.martinfrank</groupId>
-            <artifactId>boardgamelib</artifactId>
-            <version>0.1.2</version>
         </dependency>
     </dependencies>
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.martinfrank.catansettler.gui.CardSlotController">
+    <children>
+      <Label fx:id="name" text="Name" />
+      <HBox spacing="4.0" style="-fx-border-color: red; -fx-border-width: 3;">
+         <children>
+              <ImageView fx:id="image" fitHeight="137.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+      </HBox>
+      <Label fx:id="amount" text="Label" />
+    </children>
+   <padding>
+      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+   </padding>
+</VBox>

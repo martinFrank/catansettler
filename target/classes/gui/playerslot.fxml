@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.github.martinfrank.catansettler.gui.alert.PlayerSlotController">
+    <padding>
+        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+    </padding>
+    <Label text="Teilnehmer:"/>
+    <CheckBox fx:id="participantCheckBox" selected="true"/>
+    <Label text="Name:"/>
+    <TextField fx:id="nametext" text="Josef"/>
+    <Label text="Farbe:"/>
+    <ColorPicker fx:id="colorpicker"/>
+    <Label text="AI:"/>
+    <CheckBox fx:id="aiCheckBox" selected="true"/>
+</HBox>

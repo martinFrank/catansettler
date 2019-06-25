@@ -1,0 +1,18 @@
+<resource_images>
+    <heximages>
+        <heximage id="hex_clay" source="images/hex/clay.bmp"/>
+        <heximage id="hex_desert" source="images/hex/desert.bmp"/>
+        <heximage id="hex_grain" source="images/hex/grain.bmp"/>
+        <heximage id="hex_water" source="images/hex/water.bmp"/>
+        <heximage id="hex_rock" source="images/hex/rock.bmp"/>
+        <heximage id="hex_sheep" source="images/hex/sheep.bmp"/>
+        <heximage id="hex_wood" source="images/hex/wood.bmp"/>
+    </heximages>
+    <cardimages>
+        <cardimage id="card_clay" source="images/card/clay.bmp" />
+        <cardimage id="card_grain" source="images/card/grain.bmp" />
+        <cardimage id="card_rock" source="images/card/rock.bmp" />
+        <cardimage id="card_sheep" source="images/card/sheep.bmp" />
+        <cardimage id="card_wood" source="images/card/wood.bmp" />
+    </cardimages>
+</resource_images>

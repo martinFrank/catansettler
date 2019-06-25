@@ -1,0 +1,4 @@
+com\github\martinfrank\catansettler\CatanSettler.class
+com\github\martinfrank\catansettler\App.class
+com\github\martinfrank\catansettler\command\ShowCommand.class
+com\github\martinfrank\catansettler\CatanSettlerCommandProvider.class

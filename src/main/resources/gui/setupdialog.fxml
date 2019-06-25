@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.martinfrank.catansettler.gui.alert.GameSetupAlertController">
+    <fx:include source="playerslot.fxml" />
+    <fx:include source="playerslot.fxml" />
+    <fx:include source="playerslot.fxml" />
+    <fx:include source="playerslot.fxml" />
+   <TextArea fx:id="infotext" prefHeight="100.0"  />
+</VBox>
