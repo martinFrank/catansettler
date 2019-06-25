@@ -40,13 +40,14 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
             GameMapGenerator.generate(map);
             rootController.setMap(map);
             getPlayers().forEach(p -> p.init(rootController));
+
+
+            rootController.writeToConsole("Willkommen zur nächsten Runde Siedler " + getPlayers().stream().map(Player::getName).collect(Collectors.joining(",")) + "!");
+            gamePhase = GamePhase.SET_START;
+            rootController.writeToConsole("in der ersten Runde muss jeder Spieler eine Siedlung und eine angrenzende Strasse setzen");
+
+            startPlayersTurn();
         }
-        rootController.writeToConsole("Willkommen zur nächsten Runde Siedler " + getPlayers().stream().map(Player::getName).collect(Collectors.joining(",")) + "!");
-        gamePhase = GamePhase.SET_START;
-        rootController.writeToConsole("in der ersten Runde muss jeder Spieler eine Siedlung und eine angrenzende Strasse setzen");
-
-        startPlayersTurn();
-
     }
 
     @Override
