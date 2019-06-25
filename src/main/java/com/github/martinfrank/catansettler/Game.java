@@ -12,7 +12,8 @@ import com.github.martinfrank.catansettler.resource.image.ResourceImages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class Game extends BaseBoardGame<Player> implements GuiEventListener {
 
@@ -38,24 +39,58 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
             setup(dialogResult.getResult());
             GameMapGenerator.generate(map);
             rootController.setMap(map);
+            getPlayers().forEach(p -> p.init(rootController));
         }
-        rootController.writeToConsole("Willkommen zur nächsten Runde Siedler!");
+        rootController.writeToConsole("Willkommen zur nächsten Runde Siedler " + getPlayers().stream().map(Player::getName).collect(Collectors.joining(",")) + "!");
         gamePhase = GamePhase.SET_START;
         rootController.writeToConsole("in der ersten Runde muss jeder Spieler eine Siedlung und eine angrenzende Strasse setzen");
+
         startPlayersTurn();
+
     }
 
     @Override
     public void endPlayersTurn() {
+        super.endPlayersTurn();
+        if (!checkWinCondition()) {
+            checkPhase();
+            startPlayersTurn();
+        }
+    }
 
+    private boolean checkWinCondition() {
+        if (gamePhase == GamePhase.NORMAL) {
+            gamePhase = GamePhase.FINISHED;
+            return true;
+        }
+        return false;
+    }
+
+    private void checkPhase() {
+        if (isLastPlayer() && gamePhase == GamePhase.SET_START) {
+            rootController.writeToConsole("Last player has made set - let's switch to phase " + GamePhase.SET_REVERSE);
+            Collections.reverse(getPlayers());
+            gamePhase = GamePhase.SET_REVERSE;
+            return;
+        }
+        if (isLastPlayer() && gamePhase == GamePhase.SET_REVERSE) {
+            rootController.writeToConsole("Last player has made set (backwards)- let's switch to phase " + GamePhase.NORMAL);
+            Collections.reverse(getPlayers());
+            gamePhase = GamePhase.NORMAL;
+        }
     }
 
     @Override
     public void startPlayersTurn() {
-        rootController.writeToConsole("Spieler "+getCurrentPlayer().getName()+" ist dran. (Phase="+gamePhase+")");
-        if (getCurrentPlayer().isAi()){
+        super.startPlayersTurn();
+        rootController.writeToConsole("Spieler " + getCurrentPlayer().getName() + " ist dran. (Phase=" + gamePhase + ")");
+        if (getCurrentPlayer().isAi()) {
             getCurrentPlayer().performAiTurn();
+        } else {
+            //TEST - wird neu ab GUI gemacht!
+            endPlayersTurn();
         }
+
     }
 
 

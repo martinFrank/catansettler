@@ -1,6 +1,7 @@
 package com.github.martinfrank.catansettler;
 
 import com.github.martinfrank.boardgamelib.BasePlayer;
+import com.github.martinfrank.catansettler.gui.Console;
 import com.github.martinfrank.cli.CommandList;
 import com.github.martinfrank.cli.DefaultCommandList;
 
@@ -9,9 +10,23 @@ public class Player extends BasePlayer<Game>  {
     private CatanSettlerTurn currentTurn;
     private boolean isTradeOfferOpen;
     private CatanSettlerCardStack cardsOnHand;
+    private Console console;
 
     public Player(String name, int color, boolean isHuman) {
         super(name, color, isHuman);
+    }
+
+    public void init(Console console) {
+        this.console = console;
+    }
+
+    @Override
+    public void performAiTurn() {
+        console.writeToConsole("[" + getName() + "]: correct, it's my turn now");
+
+
+        console.writeToConsole("[" + getName() + "]: ok, my turn is done....");
+        getBoardGame().endPlayersTurn();
     }
 
     public int getScore(){
@@ -66,5 +81,10 @@ public class Player extends BasePlayer<Game>  {
 
 
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

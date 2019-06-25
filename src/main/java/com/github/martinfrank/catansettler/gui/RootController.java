@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class RootController {
+public class RootController implements Console {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
     private GuiEventListener eventListener;
@@ -42,6 +42,7 @@ public class RootController {
         this.eventListener = eventListener;
     }
 
+    @Override
     public void writeToConsole(String s) {
         console.appendText(s+"\n");
     }
