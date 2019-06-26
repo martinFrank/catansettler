@@ -41,7 +41,6 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
             rootController.setMap(map);
             getPlayers().forEach(p -> p.init(rootController));
 
-
             rootController.writeToConsole("Willkommen zur nächsten Runde Siedler " + getPlayers().stream().map(Player::getName).collect(Collectors.joining(",")) + "!");
             gamePhase = GamePhase.SET_START;
             rootController.writeToConsole("in der ersten Runde muss jeder Spieler eine Siedlung und eine angrenzende Strasse setzen");
@@ -52,10 +51,12 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
 
     @Override
     public void endPlayersTurn() {
-        super.endPlayersTurn();
-        if (!checkWinCondition()) {
-            checkPhase();
-            startPlayersTurn();
+        if (gamePhase.isInGame()) {
+            if (!checkWinCondition()) {
+                checkPhase();
+                super.endPlayersTurn();
+                startPlayersTurn();
+            }
         }
     }
 
@@ -83,15 +84,13 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
 
     @Override
     public void startPlayersTurn() {
-        super.startPlayersTurn();
-        rootController.writeToConsole("Spieler " + getCurrentPlayer().getName() + " ist dran. (Phase=" + gamePhase + ")");
-        if (getCurrentPlayer().isAi()) {
-            getCurrentPlayer().performAiTurn();
-        } else {
-            //TEST - wird neu ab GUI gemacht!
-            endPlayersTurn();
+        if (gamePhase.isInGame()) {
+            super.startPlayersTurn();
+            rootController.writeToConsole("Spieler " + getCurrentPlayer().getName() + " ist dran. (Phase=" + gamePhase + ")");
+            if (getCurrentPlayer().isAi()) {
+                getCurrentPlayer().performAiTurn();
+            }
         }
-
     }
 
 

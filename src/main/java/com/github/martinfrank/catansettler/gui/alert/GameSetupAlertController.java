@@ -127,7 +127,7 @@ public class GameSetupAlertController {
                         !playerSlotController.isAi()));
             }
         }
-        Collections.shuffle(players);
+//        Collections.shuffle(players);
         return new GameSetup() {
 
             @Override
