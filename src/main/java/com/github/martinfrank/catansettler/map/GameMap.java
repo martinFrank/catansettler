@@ -1,8 +1,8 @@
 package com.github.martinfrank.catansettler.map;
 
+import com.github.martinfrank.catansettler.mapdata.GameMapData;
 import com.github.martinfrank.maplib.Map;
 import com.github.martinfrank.maplib.MapStyle;
-import com.github.martinfrank.catansettler.mapdata.GameMapData;
 
 public class GameMap extends Map<GameMapData, GameMapField, GameMapEdge, GameMapNode, GameMapWalker> {
 
@@ -16,4 +16,8 @@ public class GameMap extends Map<GameMapData, GameMapField, GameMapEdge, GameMap
         getFields().forEach(f -> f.draw(drawContext));
     }
 
+
+    public void clearMapData() {
+        getFields().forEach(f -> f.clearFieldData());
+    }
 }

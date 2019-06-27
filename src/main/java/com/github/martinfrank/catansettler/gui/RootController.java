@@ -46,4 +46,12 @@ public class RootController implements Console {
     public void writeToConsole(String s) {
         console.appendText(s+"\n");
     }
+
+    public void redrawMap() {
+        mapCanvas.drawMap();
+    }
+
+    public void clearConsole() {
+        console.clear();
+    }
 }

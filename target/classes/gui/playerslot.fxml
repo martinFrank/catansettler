@@ -17,7 +17,7 @@
     <Label text="Name:"/>
     <TextField fx:id="nametext" text="Josef"/>
     <Label text="Farbe:"/>
-    <ColorPicker fx:id="colorpicker"/>
+    <ColorPicker fx:id="colorpicker" />
     <Label text="AI:"/>
     <CheckBox fx:id="aiCheckBox" selected="true"/>
 </HBox>

@@ -64,8 +64,16 @@ public class GameMapField extends MapField<GameMapFieldData, GameMapField, GameM
             }
 
             getEdges().forEach(e -> e.draw(drawContext));
-            //        getNodes().forEach(p -> p.draw(drawContext));
+
+            getNodes().forEach(p -> p.draw(drawContext));
         }
+    }
+
+    public void clearFieldData() {
+        getData().clear();
+
+        getEdges().forEach(GameMapEdge::clearEdgeData);
+        getNodes().forEach(GameMapNode::clearNodeData);
     }
 
 //    private void revertRotation(GraphicsContext gc, Point center) {

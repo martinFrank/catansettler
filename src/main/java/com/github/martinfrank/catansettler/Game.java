@@ -4,9 +4,9 @@ import com.github.martinfrank.boardgamelib.BaseBoardGame;
 import com.github.martinfrank.catansettler.gui.*;
 import com.github.martinfrank.catansettler.gui.alert.AlertManager;
 import com.github.martinfrank.catansettler.gui.alert.AlertResult;
-import com.github.martinfrank.catansettler.map.GameMap;
-import com.github.martinfrank.catansettler.map.GameMapGenerator;
-import com.github.martinfrank.catansettler.map.MapUtil;
+import com.github.martinfrank.catansettler.map.*;
+import com.github.martinfrank.catansettler.model.Road;
+import com.github.martinfrank.catansettler.model.Settlement;
 import com.github.martinfrank.catansettler.resource.ResourceManager;
 import com.github.martinfrank.catansettler.resource.image.ResourceImages;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
             GameMapGenerator.generate(map);
             rootController.setMap(map);
             getPlayers().forEach(p -> p.init(rootController));
-
+            rootController.clearConsole();
             rootController.writeToConsole("Willkommen zur nächsten Runde Siedler " + getPlayers().stream().map(Player::getName).collect(Collectors.joining(",")) + "!");
             gamePhase = GamePhase.SET_START;
             rootController.writeToConsole("in der ersten Runde muss jeder Spieler eine Siedlung und eine angrenzende Strasse setzen");
@@ -121,5 +121,27 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
 
     public void addCardSlotController(CardSlotController cardSlotController) {
         cardStackController.add(cardSlotController);
+    }
+
+    public GamePhase getGamePhase() {
+        return gamePhase;
+    }
+
+    public GameMap getMap() {
+        return map;
+    }
+
+
+    //ingame methods
+    public void placeSettlement(Settlement settlement, GameMapNode node) {
+        settlement.setLocation(node);
+        node.getData().setSettlement(settlement);
+        rootController.redrawMap();
+    }
+
+    public void placeRoad(Road road, GameMapEdge edge) {
+        road.setLocation(edge);
+        edge.getData().setRoad(road);
+        rootController.redrawMap();
     }
 }

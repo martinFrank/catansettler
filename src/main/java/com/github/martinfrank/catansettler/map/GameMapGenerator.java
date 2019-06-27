@@ -31,6 +31,9 @@ public class GameMapGenerator {
 
     public static void generate(GameMap map) {
         double start = System.currentTimeMillis();
+
+        map.clearMapData();
+
         generateFieldRessources(map);
         generateFieldDie(map);
 
@@ -71,7 +74,13 @@ public class GameMapGenerator {
         if (center == 6 && candidate == 8){
             return false;
         }
+        if (center == 6 && candidate == 6) {
+            return false;
+        }
         if (center == 8 && candidate == 6){
+            return false;
+        }
+        if (center == 8 && candidate == 8) {
             return false;
         }
         if (center == 12 && candidate == 2){
@@ -111,7 +120,7 @@ public class GameMapGenerator {
 
     }
 
-    private static List<GameMapField> getResourceFields(GameMap map) {
+    public static List<GameMapField> getResourceFields(GameMap map) {
         List<GameMapField> list = new ArrayList<>();
         list.add(map.getField(1, 2));
         list.add(map.getField(1, 3));

@@ -28,4 +28,9 @@ public class GameMapFieldData extends ResourceData {
     public int getFieldDice() {
         return fieldDice;
     }
+
+    public void clear() {
+        fieldResource = FieldResource.EMPTY;
+        fieldDice = 0;
+    }
 }
