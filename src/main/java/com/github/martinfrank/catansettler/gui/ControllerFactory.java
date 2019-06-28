@@ -28,7 +28,9 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
             game.addCardSlotController(cardStackController);
             return cardStackController;
         } else if (type == PlayerDeckController.class) {
-            return new PlayerDeckController(game);
+            PlayerDeckController playerDeckController = new PlayerDeckController(game);
+            game.setPlayerDeckController(playerDeckController);
+            return playerDeckController;
         } else {
             // default behavior for controllerFactory:
             try {

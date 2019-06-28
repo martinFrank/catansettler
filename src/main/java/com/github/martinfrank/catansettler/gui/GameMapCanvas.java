@@ -31,7 +31,7 @@ public class GameMapCanvas extends Canvas {
     public MouseSelection getSelectionAt(int x, int y) {
         MouseSelection selection = new MouseSelection(x,y);
         if (map != null) {
-            selection.setPoint(map.getNodeAt(x, y));
+            selection.setNode(map.getNodeAt(x, y));
             selection.setEdge(map.getEdgeAt(x, y));
             selection.setField(map.getFieldAt(x, y));
         }

@@ -1,21 +1,28 @@
 package com.github.martinfrank.catansettler;
 
 import com.github.martinfrank.boardgamelib.BaseBoardGame;
-import com.github.martinfrank.catansettler.gui.*;
+import com.github.martinfrank.boardgamelib.BasePlayer;
+import com.github.martinfrank.catansettler.gui.CardSlotController;
+import com.github.martinfrank.catansettler.gui.CardStackController;
+import com.github.martinfrank.catansettler.gui.PlayerDeckController;
+import com.github.martinfrank.catansettler.gui.RootController;
 import com.github.martinfrank.catansettler.gui.alert.AlertManager;
 import com.github.martinfrank.catansettler.gui.alert.AlertResult;
-import com.github.martinfrank.catansettler.map.*;
+import com.github.martinfrank.catansettler.map.GameMap;
+import com.github.martinfrank.catansettler.map.GameMapEdge;
+import com.github.martinfrank.catansettler.map.GameMapGenerator;
+import com.github.martinfrank.catansettler.map.MapUtil;
 import com.github.martinfrank.catansettler.model.Road;
-import com.github.martinfrank.catansettler.model.Settlement;
 import com.github.martinfrank.catansettler.resource.ResourceManager;
 import com.github.martinfrank.catansettler.resource.image.ResourceImages;
+import com.github.martinfrank.catansettler.workflow.SetStartWorkFlow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-public class Game extends BaseBoardGame<Player> implements GuiEventListener {
+public class Game extends BaseBoardGame<Player> {//implements GuiEventListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
 
@@ -23,8 +30,9 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
     private final AlertManager alertManager;
     private CardStackController cardStackController;
     private GamePhase gamePhase;
-
     private RootController rootController;
+    private PlayerDeckController playerDeckController;
+
 
     Game(ResourceManager resourceManager) {
         gamePhase = GamePhase.NEW;
@@ -44,13 +52,15 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
             rootController.writeToConsole("Willkommen zur nächsten Runde Siedler " + getPlayers().stream().map(Player::getName).collect(Collectors.joining(",")) + "!");
             gamePhase = GamePhase.SET_START;
             rootController.writeToConsole("in der ersten Runde muss jeder Spieler eine Siedlung und eine angrenzende Strasse setzen");
-
             startPlayersTurn();
         }
     }
 
     @Override
     public void endPlayersTurn() {
+        if (playerDeckController.hasCurrentWorkFlow()) {
+            return;
+        }
         if (gamePhase.isInGame()) {
             if (!checkWinCondition()) {
                 checkPhase();
@@ -89,6 +99,10 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
             rootController.writeToConsole("Spieler " + getCurrentPlayer().getName() + " ist dran. (Phase=" + gamePhase + ")");
             if (getCurrentPlayer().isAi()) {
                 getCurrentPlayer().performAiTurn();
+            } else {
+                if (getGamePhase() == GamePhase.SET_START) {
+                    playerDeckController.setWorkflow(new SetStartWorkFlow(this, getHumanPlayer()));
+                }
             }
         }
     }
@@ -99,17 +113,12 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
         GameMapGenerator.generate(map);
         rootController.init();
         rootController.setMap(map);
-        rootController.setGuiEventListener(this);
+        rootController.setGuiEventListener(playerDeckController);
         cardStackController.init(resourceImages);
+        playerDeckController.setConsole(rootController);
+        playerDeckController.setPlayer(getHumanPlayer());
     }
 
-    @Override
-    public void mouseSelect(MouseSelection selection) {
-        LOGGER.debug("mouseSelect: {}", selection);
-        if (selection.getField() != null) {
-            LOGGER.debug("mousefield resource: {}", selection.getField().getData().getFieldResource());
-        }
-    }
 
     public void setCardStackController(CardStackController cardStackController) {
         this.cardStackController = cardStackController;
@@ -117,6 +126,10 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
 
     public void setRootController(RootController rootController) {
         this.rootController = rootController;
+    }
+
+    public void setPlayerDeckController(PlayerDeckController playerDeckController) {
+        this.playerDeckController = playerDeckController;
     }
 
     public void addCardSlotController(CardSlotController cardSlotController) {
@@ -132,10 +145,7 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
     }
 
 
-    //ingame methods
-    public void placeSettlement(Settlement settlement, GameMapNode node) {
-        settlement.setLocation(node);
-        node.getData().setSettlement(settlement);
+    public void redrawMap() {
         rootController.redrawMap();
     }
 
@@ -144,4 +154,19 @@ public class Game extends BaseBoardGame<Player> implements GuiEventListener {
         edge.getData().setRoad(road);
         rootController.redrawMap();
     }
+
+    public boolean isInGame() {
+        return (gamePhase == GamePhase.NORMAL ||
+                gamePhase == GamePhase.SET_START ||
+                gamePhase == GamePhase.SET_REVERSE);
+    }
+
+    private Player getHumanPlayer() {
+        if (getPlayers() != null && getPlayers().size() > 0) {
+            return getPlayers().stream().filter(BasePlayer::isHuman).findAny().orElse(null);
+        }
+        return null;
+    }
+
+
 }

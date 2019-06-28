@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class Player extends BasePlayer<Game>  {
+public class Player extends BasePlayer<Game> {
 
     private Console console;
     private MapAnalyzer mapAnalyzer;
@@ -48,7 +48,9 @@ public class Player extends BasePlayer<Game>  {
             GameMapNode node = mapAnalyzer.getSettlementPlacingValues().get(0).get();
             Settlement settlement = inStockSettlements.remove(0);
             placedSettlements.add(settlement);
-            getBoardGame().placeSettlement(settlement, node);
+            settlement.setLocation(node);
+            node.getData().setSettlement(settlement);
+//            getBoardGame().placeSettlement(settlement, node);
 
             GameMapEdge edge = mapAnalyzer.getRoadPlacingValues(node).get(0).get();
             Road road = inStockRoad.remove(0);
@@ -76,5 +78,12 @@ public class Player extends BasePlayer<Game>  {
 
     public List<Road> getPlacedRoads() {
         return placedRoad;
+    }
+
+    public Settlement removeSettlementFromStock() {
+        if (inStockSettlements.size() > 0) {
+            return inStockSettlements.remove(0);
+        }
+        return null;
     }
 }

@@ -9,7 +9,7 @@ public class MouseSelection {
 
     private final int x;
     private final int y;
-    private GameMapNode point;
+    private GameMapNode node;
     private GameMapEdge edge;
     private GameMapField field;
 
@@ -18,12 +18,16 @@ public class MouseSelection {
         this.y = y;
     }
 
-    public GameMapNode getPoint() {
-        return point;
+    public GameMapNode getNode() {
+        return node;
     }
 
-    public void setPoint(GameMapNode point) {
-        this.point = point;
+    public void setNode(GameMapNode node) {
+        this.node = node;
+    }
+
+    public boolean hasNode() {
+        return node != null;
     }
 
     public GameMapEdge getEdge() {
@@ -34,12 +38,20 @@ public class MouseSelection {
         this.edge = edge;
     }
 
+    public boolean hasEdge() {
+        return edge != null;
+    }
+
     public GameMapField getField() {
         return field;
     }
 
     public void setField(GameMapField field) {
         this.field = field;
+    }
+
+    public boolean hasField() {
+        return field != null;
     }
 
     public int getX() {
@@ -52,6 +64,6 @@ public class MouseSelection {
 
     @Override
     public String toString() {
-        return "mouse selection @ "+x+"/"+y+" field='"+field+"', edge='"+edge+"', point='"+point+"'.";
+        return "mouse selection @ " + x + "/" + y + " field='" + field + "', edge='" + edge + "', node='" + node + "'.";
     }
 }
