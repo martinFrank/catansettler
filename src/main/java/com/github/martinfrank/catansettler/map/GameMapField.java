@@ -6,10 +6,10 @@ import com.github.martinfrank.catansettler.resource.image.ResourceImages;
 import com.github.martinfrank.drawlib.Point;
 import com.github.martinfrank.drawlib.Shape;
 import com.github.martinfrank.maplib.MapField;
-import com.sun.javafx.tk.Toolkit;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 
 public class GameMapField extends MapField<GameMapFieldData, GameMapField, GameMapEdge, GameMapNode> {
@@ -60,8 +60,16 @@ public class GameMapField extends MapField<GameMapFieldData, GameMapField, GameM
 
                 String text = ""+dice;
 
-                float w = Toolkit.getToolkit().getFontLoader().computeStringWidth("", gc.getFont());
-                float h = Toolkit.getToolkit().getFontLoader().getFontMetrics(gc.getFont()).getLineHeight();
+//                float w = Toolkit.getToolkit().getFontLoader().computeStringWidth(text, gc.getFont());
+//                float h = Toolkit.getToolkit().getFontLoader().getFontMetrics(gc.getFont()).getLineHeight();
+
+                final Text textThrowAway = new Text(text);
+//                Font font = Font.font("Arial", 20);
+//                textThrowAway.setFont(font);
+
+                final double w = textThrowAway.getLayoutBounds().getWidth();
+                final double h = textThrowAway.getFont().getSize();
+
                 gc.fillText("" + dice, shape.getCenter().getX()-(w/2), shape.getCenter().getY()+h);
             }
 
