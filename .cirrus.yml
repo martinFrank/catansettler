@@ -1,12 +1,12 @@
 container:
   #image: maven:latest
-  #image: maven:3.6.1-jdk-8
-  dockerfile: .ci/Dockerfile
+  image: maven:3.6.1-jdk-8
+#  dockerfile: .ci/Dockerfile
 
 build_task:
 
-  #  install_script:
-  #  - apt-get update
-  #  - apt-get install --no-install-recommends -y openjdk-8-jdk openjfx
+  install_script:
+  - apt-get update
+  - apt-get install --no-install-recommends -y openjdk-8-jdk openjfx
 
   build_script: mvn clean compile test sonar:sonar
