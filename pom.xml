@@ -101,12 +101,19 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.openjfx/javafx -->
+        <!--<dependency>-->
+        <!--<groupId>org.openjfx</groupId>-->
+        <!--<artifactId>javafx</artifactId>-->
+        <!--<version>11-ea+25</version>-->
+        <!--<type>pom</type>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx</artifactId>
-            <version>11-ea+25</version>
-            <type>pom</type>
+            <artifactId>javafx-controls</artifactId>
+            <version>12.0.1</version>
         </dependency>
+
     </dependencies>
 
     <build>
