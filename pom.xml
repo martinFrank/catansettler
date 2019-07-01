@@ -118,7 +118,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx</artifactId>
-            <version>11-ea+25</version>
+            <version>11</version>
         </dependency>
 
     </dependencies>
