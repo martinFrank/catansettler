@@ -11,6 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+
 public class GameMapField extends MapField<GameMapFieldData, GameMapField, GameMapEdge, GameMapNode> {
 
     private final int imageXOffSet = -48;
@@ -58,8 +59,12 @@ public class GameMapField extends MapField<GameMapFieldData, GameMapField, GameM
                 gc.setFill(Color.BLACK);
 
                 String text = ""+dice;
-                double w = Toolkit.getToolkit().getFontLoader().computeStringWidth(text, gc.getFont());
-                double h = Toolkit.getToolkit().getFontLoader().getFontMetrics(gc.getFont()).getDescent();
+
+                float w = Toolkit.getToolkit().getFontLoader().computeStringWidth("", gc.getFont());
+                float h = Toolkit.getToolkit().getFontLoader().getFontMetrics(gc.getFont()).getLineHeight();
+
+//                double w = Toolkit.getToolkit().getFontLoader().computeStringWidth(text, gc.getFont());
+//                double h = Toolkit.getToolkit().getFontLoader().getFontMetrics(gc.getFont()).getDescent();
                 gc.fillText("" + dice, shape.getCenter().getX()-(w/2), shape.getCenter().getY()+h);
             }
 
