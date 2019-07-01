@@ -62,9 +62,6 @@ public class GameMapField extends MapField<GameMapFieldData, GameMapField, GameM
 
                 float w = Toolkit.getToolkit().getFontLoader().computeStringWidth("", gc.getFont());
                 float h = Toolkit.getToolkit().getFontLoader().getFontMetrics(gc.getFont()).getLineHeight();
-
-//                double w = Toolkit.getToolkit().getFontLoader().computeStringWidth(text, gc.getFont());
-//                double h = Toolkit.getToolkit().getFontLoader().getFontMetrics(gc.getFont()).getDescent();
                 gc.fillText("" + dice, shape.getCenter().getX()-(w/2), shape.getCenter().getY()+h);
             }
 
