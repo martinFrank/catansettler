@@ -1,6 +1,6 @@
 container:
   #image: maven:latest
-  image: maven:3.6.1-jdk-8
+  image: maven:3.6.1-jdk-11
 #  dockerfile: .ci/Dockerfile
 
 build_task:
