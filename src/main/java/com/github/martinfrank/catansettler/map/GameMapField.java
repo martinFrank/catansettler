@@ -14,8 +14,8 @@ import javafx.scene.text.Text;
 
 public class GameMapField extends MapField<GameMapFieldData, GameMapField, GameMapEdge, GameMapNode> {
 
-    private final int imageXOffSet = -48;
-    private final int imageYOffSet = -48;
+    private static final int IMAGE_X_OFF_SET = -48;
+    private static final int IMAGE_Y_OFF_SET = -48;
 //    private int angle = -60 + new Random().nextInt(3)*60;
 
 
@@ -44,8 +44,8 @@ public class GameMapField extends MapField<GameMapFieldData, GameMapField, GameM
             if (image != null) {
                 //            setRotation(gc, shape.getCenter());
                 gc.drawImage(image,
-                        shape.getCenter().getX() + imageXOffSet,
-                        shape.getCenter().getY() + imageYOffSet);
+                        shape.getCenter().getX() + IMAGE_X_OFF_SET,
+                        shape.getCenter().getY() + IMAGE_Y_OFF_SET);
                 //            revertRotation(gc, shape.getCenter());
             } else {
                 System.out.println("images = null!");
@@ -59,10 +59,6 @@ public class GameMapField extends MapField<GameMapFieldData, GameMapField, GameM
                 gc.setFill(Color.BLACK);
 
                 String text = ""+dice;
-
-//                float w = Toolkit.getToolkit().getFontLoader().computeStringWidth(text, gc.getFont());
-//                float h = Toolkit.getToolkit().getFontLoader().getFontMetrics(gc.getFont()).getLineHeight();
-
                 final Text textThrowAway = new Text(text);
 //                Font font = Font.font("Arial", 20);
 //                textThrowAway.setFont(font);
@@ -70,7 +66,7 @@ public class GameMapField extends MapField<GameMapFieldData, GameMapField, GameM
                 final double w = textThrowAway.getLayoutBounds().getWidth();
                 final double h = textThrowAway.getFont().getSize();
 
-                gc.fillText("" + dice, shape.getCenter().getX()-(w/2), shape.getCenter().getY()+h);
+                gc.fillText("" + dice, shape.getCenter().getX() - (w / 2), shape.getCenter().getY() + (h / 2) - 1);
             }
 
             getEdges().forEach(e -> e.draw(drawContext));
